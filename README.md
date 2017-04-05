@@ -16,5 +16,4 @@ This project is set up using `yarn` with following packages:
 - `yarn compile` or `yarn compile-production`
 
 ## TODO
-- add sass loader
 - add testig framework
