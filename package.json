@@ -4,7 +4,9 @@
   "description": "Frontend for a timetable app. Needs the timetable API.",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server"
+    "dev": "webpack-dev-server",
+    "compile": "webpack",
+    "compile-production": "webpack -p"
   },
   "dependencies": {
     "html-webpack-plugin": "^2.28.0",
