@@ -14,12 +14,13 @@ Following dependencies are used:
 
 ## Setup
 - `git clone git@github.com:David3141/react-starter.git`
+- (`mv react-starter <your-project-name>`)
+- `cd <your-project-name>`
 - `yarn install`
 
 ## Folder Structure
-The project's source code lies in `/src`. Compiling creates a (`.gitignore`'d) `/bin` folder that contains
-the compiled `.html` + `.js` files. _(Do not use for development, web-dev-server takes care of compiling
-and browser reloading!)_
+The project's source code lies in `/src`. Compiling creates a (git-ignored) `/bin` folder that contains
+the compiled `.html` + `.js` files.
 
 ## Development
 - `yarn dev`
@@ -28,6 +29,8 @@ This starts webpack-dev-server on port 8080 with hot-module-replacement (via `re
 
 ## Compiling
 - `yarn compile` or `yarn compile-production`
+
+They create `/bin/index_bundle.js` + `/bin/index.html`. `yarn compile` uses `webpack`, `yarn compile-production` uses `webpack -p`, which minifies the JS-file.
 
 ## TODO
 - add testig framework
