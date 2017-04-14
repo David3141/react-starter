@@ -1,17 +1,35 @@
-const path = require('path');
+const { resolve } = require('path');
+const webpack = require('webpack');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
-  template: './src/index.html',
+  template: './index.html',
   filename: 'index.html',
   inject: 'body'
 })
 
 module.exports = {
-  entry: './src/index.js',
+  context: resolve(__dirname, 'src'),
+
+  entry: [
+    'react-hot-loader/patch',
+    'webpack-dev-server/client?http://localhost:8080',
+    'webpack/hot/only-dev-server',
+    './index.js'
+  ],
+
   output: {
-    path: path.resolve('bin'),
-    filename: 'index_bundle.js'
+    path: resolve(__dirname, 'bin'),
+    filename: 'index_bundle.js',
+    publicPath: '/'
+  },
+
+  devtool: 'inline-source-map',
+
+  devServer: {
+    hot: true,
+    contentBase: resolve(__dirname, 'dist'),
+    publicPath: '/'
   },
 
   module: {
@@ -31,5 +49,9 @@ module.exports = {
     ]
   },
 
-  plugins: [HtmlWebpackPluginConfig]
+  plugins: [
+    HtmlWebpackPluginConfig,
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin(),
+  ]
 }
