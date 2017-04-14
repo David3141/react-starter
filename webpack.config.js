@@ -20,8 +20,7 @@ module.exports = {
 
   output: {
     path: resolve(__dirname, 'bin'),
-    filename: 'index_bundle.js',
-    publicPath: '/'
+    filename: 'index_bundle.js'
   },
 
   devtool: 'inline-source-map',
