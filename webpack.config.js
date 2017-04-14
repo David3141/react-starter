@@ -28,7 +28,7 @@ module.exports = {
 
   devServer: {
     hot: true,
-    contentBase: resolve(__dirname, 'dist'),
+    contentBase: resolve(__dirname, 'bin'),
     publicPath: '/'
   },
 
