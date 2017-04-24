@@ -1,6 +1,8 @@
 const { resolve } = require('path');
 const webpack = require('webpack');
 
+const env = process.env['NODE_ENV']
+
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   template: './index.html',
@@ -8,19 +10,17 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   inject: 'body'
 })
 
-module.exports = {
+const webpackConfig = {
   context: resolve(__dirname, 'src'),
 
   entry: [
-    'react-hot-loader/patch',
-    'webpack-dev-server/client?http://localhost:8080',
-    'webpack/hot/only-dev-server',
     './index.js'
   ],
 
   output: {
-    path: resolve(__dirname, 'bin'),
-    filename: 'index_bundle.js'
+    path: resolve(__dirname, 'public'),
+    filename: 'bundle.js',
+    publicPath: '/'
   },
 
   devtool: 'inline-source-map',
@@ -49,7 +49,33 @@ module.exports = {
 
   plugins: [
     HtmlWebpackPluginConfig,
-    new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
   ]
 }
+
+if (env === 'development') {
+  webpackConfig.entry.unshift('webpack/hot/only-dev-server')
+  webpackConfig.entry.unshift('webpack-dev-server/client?http://localhost:8080')
+  webpackConfig.entry.unshift('react-hot-loader/patch')
+
+  const hmrPlugin = new webpack.HotModuleReplacementPlugin()
+  webpackConfig.plugins.push(hmrPlugin)
+} else if (env === 'production') {
+  webpackConfig.plugins.push(
+    new webpack.DefinePlugin({
+      'process.env':{
+        'NODE_ENV': JSON.stringify('production')
+      }
+    })
+  )
+  webpackConfig.plugins.push(new webpack.optimize.OccurrenceOrderPlugin())
+  webpackConfig.plugins.push(
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+          warnings: true
+      }
+    }
+  ))
+}
+
+module.exports = webpackConfig
