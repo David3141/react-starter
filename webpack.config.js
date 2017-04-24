@@ -1,14 +1,21 @@
 const { resolve } = require('path');
 const webpack = require('webpack');
 
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+
 const env = process.env['NODE_ENV']
 
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   template: './index.html',
   filename: 'index.html',
   inject: 'body'
 })
+
+const extractSass = new ExtractTextPlugin({
+    filename: "[name].[contenthash].css",
+    disable: process.env.NODE_ENV === "development"
+});
 
 const webpackConfig = {
   context: resolve(__dirname, 'src'),
@@ -36,13 +43,15 @@ const webpackConfig = {
       { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
       {
         test: /\.scss$/,
-        use: [{
-          loader: "style-loader"
-        }, {
-          loader: "css-loader"
-        }, {
-          loader: "sass-loader"
-        }]
+        use: extractSass.extract({
+          use: [{
+            loader: "css-loader"
+          }, {
+            loader: "sass-loader"
+          }],
+          // use style-loader in development
+          fallback: "style-loader"
+        })
       }
     ]
   },
@@ -50,6 +59,7 @@ const webpackConfig = {
   plugins: [
     HtmlWebpackPluginConfig,
     new webpack.NamedModulesPlugin(),
+    extractSass,
   ]
 }
 
