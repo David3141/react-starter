@@ -27,7 +27,7 @@ const webpackConfig = {
   output: {
     path: resolve(__dirname, 'public'),
     filename: 'bundle.js',
-    publicPath: '/'
+    publicPath: './'
   },
 
   devtool: 'inline-source-map',
