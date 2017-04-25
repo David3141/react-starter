@@ -1,36 +1,39 @@
 # SiReSPo - Simplest React Starter Possible
 
 This project is set up using `yarn`, though `npm` will work as well, just replace
-`"yarn"` with `"npm"` in the commands below (you can delete `yarn.lock` if you feel like it).
+`"yarn"` with `"npm"` (or `"npm run"` for running scripts) in the commands below (if you want to use npm, you can delete `yarn.lock` if you feel like it).
 
 Following dependencies are used:
 
-- react (who would have thought)
+- react
 - react-hot-loader
 - webpack + html-webpack-plugin
-- babel stuff for webpack
-- sass stuff for webpack
-- webpack-dev-server
+- babel
+- sass
+- express + webpack-dev-middleware + webpack-hot-middleware
 
 ## Setup
 - `git clone git@github.com:David3141/react-starter.git`
 - (`mv react-starter <your-project-name>`)
 - `cd <your-project-name>`
-- `yarn install`
+- `yarn install` | `npm install`
 
 ## Folder Structure
-The project's source code lies in `/src`. Compiling creates a (git-ignored) `/bin` folder that contains
-the compiled `.html` + `.js` files.
-
-## Development
+```
+- `src`    : Client code
+- `server` : Server code
+- `public` : (compiled source, used by webpack)
+```
+## Scripts
+### Development
 - `yarn dev`
 
-This starts webpack-dev-server on port 8080 with hot-module-replacement (via `react-hot-loader`).
+This starts an `express` server in `development` mode with dev+hmr webpack middleware.
 
-## Compiling
-- `yarn compile` or `yarn compile-production`
+### Production
+- `yarn prod`
 
-They create `/bin/index_bundle.js` + `/bin/index.html`. `yarn compile` uses `webpack`, `yarn compile-production` uses `webpack -p`, which minifies the JS-file.
+This compiles the project's source to `public` and starts an express server in `production` mode.
 
 ## TODO
 - add testig framework

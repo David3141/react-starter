@@ -6,8 +6,7 @@
   "scripts": {
     "dev": "NODE_ENV=development node server/main.js",
     "prod": "NODE_ENV=production webpack && NODE_ENV=production node server/main.js",
-    "compile": "webpack",
-    "compile-production": "webpack -p"
+    "compile": "NODE_ENV=production webpack"
   },
   "dependencies": {
     "babel-core": "^6.24.0",
