@@ -4,8 +4,8 @@
   "description": "React app that uses webpack-dev-server for development, node for production",
   "main": "server.js",
   "scripts": {
-    "dev": "NODE_ENV=development node server.js",
-    "prod": "NODE_ENV=production webpack && NODE_ENV=production node server.js",
+    "dev": "NODE_ENV=development node server/main.js",
+    "prod": "NODE_ENV=production webpack && NODE_ENV=production node server/main.js",
     "compile": "webpack",
     "compile-production": "webpack -p"
   },
