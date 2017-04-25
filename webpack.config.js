@@ -27,7 +27,7 @@ const webpackConfig = {
   output: {
     path: resolve(__dirname, 'public'),
     filename: 'bundle.js',
-    publicPath: './'
+    publicPath: '/'
   },
 
   devtool: 'inline-source-map',
@@ -64,8 +64,7 @@ const webpackConfig = {
 }
 
 if (env === 'development') {
-  webpackConfig.entry.unshift('webpack/hot/only-dev-server')
-  webpackConfig.entry.unshift('webpack-dev-server/client?http://localhost:8080')
+  webpackConfig.entry.unshift('webpack-hot-middleware/client')
   webpackConfig.entry.unshift('react-hot-loader/patch')
 
   const hmrPlugin = new webpack.HotModuleReplacementPlugin()

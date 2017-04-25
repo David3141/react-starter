@@ -4,8 +4,8 @@
   "description": "React app that uses webpack-dev-server for development, node for production",
   "main": "server.js",
   "scripts": {
-    "dev": "NODE_ENV=development webpack-dev-server --content-base public",
-    "prod": "NODE_ENV=production webpack && node server.js",
+    "dev": "NODE_ENV=development node server.js",
+    "prod": "NODE_ENV=production webpack && NODE_ENV=production node server.js",
     "compile": "webpack",
     "compile-production": "webpack -p"
   },
@@ -26,7 +26,9 @@
     "react-hot-loader": "next",
     "sass-loader": "^6.0.3",
     "style-loader": "^0.16.1",
-    "webpack": "^2.3.3"
+    "webpack": "^2.3.3",
+    "webpack-dev-middleware": "^1.10.2",
+    "webpack-hot-middleware": "^2.18.0"
   },
   "devDependencies": {
     "webpack-dev-server": "^2.4.2"
