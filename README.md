@@ -13,15 +13,14 @@ Following dependencies are used:
 - express + webpack-dev-middleware + webpack-hot-middleware
 
 ## Setup
-- `git clone git@github.com:David3141/react-starter.git`
-- (`mv react-starter <your-project-name>`)
-- `cd <your-project-name>`
-- `yarn install` | `npm install`
+- `git clone git@github.com:David3141/react-starter.git your-project-name`
+- `cd your-project-name`
+- `yarn install`
 
 ## Folder Structure
 ```
-- `src`    : Client code
-- `server` : Server code
+- `src`    : client code (-> react)
+- `server` : server code
 - `public` : (compiled source, used by webpack)
 ```
 ## Scripts
