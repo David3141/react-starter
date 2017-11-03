@@ -1,17 +1,18 @@
-var express = require('express')
-var path = require('path')
-var compression = require('compression')
+const express       = require('express')
+const path          = require('path')
+const compression   = require('compression')
 
-var base_dir = path.resolve(__dirname, '..')
-var env = process.env['NODE_ENV']
+const base_dir = path.resolve(__dirname, '..')
+const env      = process.env['NODE_ENV']
 
-var app = express()
+const app = express()
 app.use(compression())
 
+// webpack-HMR in development, /dist in production
 if (env === 'development') {
-  var webpack       = require('webpack');
-  var webpackConfig = require('../webpack.config');
-  var compiler      = webpack(webpackConfig);
+  const webpack       = require('webpack');
+  const webpackConfig = require('../webpack.config');
+  const compiler      = webpack(webpackConfig);
 
   app.use(require("webpack-dev-middleware")(compiler, {
     hot: true,
@@ -20,15 +21,14 @@ if (env === 'development') {
   }));
 
   app.use(require("webpack-hot-middleware")(compiler));
+
+} else {
+  app.use(express.static(path.join(base_dir, 'dist')))
 }
 
 app.use(express.static(path.join(base_dir, 'public')))
 
-app.get('*', function(req, res) {
-  res.sendFile(path.join(base_dir, 'public', 'index.html'))
-})
-
-var PORT = process.env.PORT || 8080
+const PORT = process.env.PORT || 8080
 
 app.listen(PORT, function() {
   console.log(env + ' express server running at localhost:' + PORT)

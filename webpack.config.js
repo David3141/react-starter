@@ -20,12 +20,10 @@ const extractSass = new ExtractTextPlugin({
 const webpackConfig = {
   context: resolve(__dirname, 'src'),
 
-  entry: [
-    './index.js'
-  ],
+  entry: ['./index.js'],
 
   output: {
-    path: resolve(__dirname, 'public'),
+    path: resolve(__dirname, 'dist'),
     filename: 'bundle.js',
     publicPath: '/'
   },
