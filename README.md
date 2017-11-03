@@ -19,16 +19,33 @@ Following dependencies are used:
 
 ## Folder Structure
 ```
-- `src`    : client code (-> react)
-- `server` : server code
-- `public` : (compiled source, used by webpack)
+– src                : client code
+  └ index.js         : root point for react app
+  └ index.html       : html page containing root div
+  └ components       : folder for react components
+    └ App.js         : an example component
+    └ App.js         : example component's style
+– server             : server code
+  └ main.js          : simple express server with HMR
+– public             : (compiled source, used by webpack)
+
+// Additional config files etc.
+- .babelrc           : babel config
+- .editorconfig      : editorconfig file (http://editorconfig.org/)
+- .eslintignore      : files not to lint
+- .eslintrc.json
+- .gitignore
+- package.json
+- README.md
+- webpack.config.js
+- yarn.lock
 ```
 ## Scripts
-### Development
 - `yarn dev` starts an `express` server in `development` mode with dev+hmr webpack middleware
 - `yarn prod` compiles the project's source to `/public` and starts an express server in `production` mode
-- `yarn lint` lints the code in `/src` (with eslint)
-- `yarn lint:fix` lints the code in `/src` and fixes easy errors
+- `yarn lint` lints the code via eslint (effectively `/src`, have a look at .eslintignore)
+- `yarn lint:fix` behaves like `lint` but fixes simple errors
+- `yarn compile` builds the project
 
 ## TODO
 - add testig framework
