@@ -1,8 +1,8 @@
-const { resolve } = require('path');
-const webpack = require('webpack');
+const { resolve } = require('path')
+const webpack = require('webpack')
 
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 const env = process.env['NODE_ENV']
 
@@ -13,9 +13,9 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 })
 
 const extractSass = new ExtractTextPlugin({
-    filename: "[name].[contenthash].css",
-    disable: process.env.NODE_ENV === "development"
-});
+  filename: '[name].[contenthash].css',
+  disable: process.env.NODE_ENV === 'development'
+})
 
 const webpackConfig = {
   context: resolve(__dirname, 'src'),
@@ -32,12 +32,6 @@ const webpackConfig = {
 
   devtool: 'inline-source-map',
 
-  devServer: {
-    hot: true,
-    contentBase: resolve(__dirname, 'bin'),
-    publicPath: '/'
-  },
-
   module: {
     rules: [
       { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
@@ -45,12 +39,12 @@ const webpackConfig = {
         test: /\.scss$/,
         use: extractSass.extract({
           use: [{
-            loader: "css-loader"
+            loader: 'css-loader'
           }, {
-            loader: "sass-loader"
+            loader: 'sass-loader'
           }],
           // use style-loader in development
-          fallback: "style-loader"
+          fallback: 'style-loader'
         })
       }
     ]
@@ -69,6 +63,7 @@ if (env === 'development') {
 
   const hmrPlugin = new webpack.HotModuleReplacementPlugin()
   webpackConfig.plugins.push(hmrPlugin)
+
 } else if (env === 'production') {
   webpackConfig.plugins.push(
     new webpack.DefinePlugin({
@@ -81,10 +76,10 @@ if (env === 'development') {
   webpackConfig.plugins.push(
     new webpack.optimize.UglifyJsPlugin({
       compress: {
-          warnings: true
+        warnings: true
       }
-    }
-  ))
+    })
+  )
 }
 
 module.exports = webpackConfig

@@ -5,8 +5,8 @@
   "main": "server/main.js",
   "scripts": {
     "dev": "NODE_ENV=development node server/main.js",
-    "lint": "eslint src",
-    "lint:fix": "eslint src --fix",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "prod": "NODE_ENV=production webpack && NODE_ENV=production node server/main.js",
     "compile": "NODE_ENV=production webpack"
   },
