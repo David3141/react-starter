@@ -5,6 +5,8 @@
   "main": "server/main.js",
   "scripts": {
     "dev": "NODE_ENV=development node server/main.js",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
     "prod": "NODE_ENV=production webpack && NODE_ENV=production node server/main.js",
     "compile": "NODE_ENV=production webpack"
   },
@@ -29,5 +31,9 @@
     "webpack-dev-middleware": "^1.10.2",
     "webpack-hot-middleware": "^2.18.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "babel-eslint": "^8.0.1",
+    "eslint": "^4.10.0",
+    "eslint-plugin-react": "^7.4.0"
+  }
 }
