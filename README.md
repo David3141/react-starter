@@ -25,14 +25,10 @@ Following dependencies are used:
 ```
 ## Scripts
 ### Development
-- `yarn dev`
-
-This starts an `express` server in `development` mode with dev+hmr webpack middleware.
-
-### Production
-- `yarn prod`
-
-This compiles the project's source to `public` and starts an express server in `production` mode.
+- `yarn dev` starts an `express` server in `development` mode with dev+hmr webpack middleware
+- `yarn prod` compiles the project's source to `/public` and starts an express server in `production` mode
+- `yarn lint` lints the code in `/src` (with eslint)
+- `yarn lint:fix` lints the code in `/src` and fixes easy errors
 
 ## TODO
 - add testig framework
