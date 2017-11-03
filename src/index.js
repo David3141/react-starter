@@ -7,7 +7,7 @@ import App from './components/App'
 const render = (Component) => {
   ReactDOM.render(
     <AppContainer>
-      <App />
+      <Component />
     </AppContainer>,
     document.getElementById('root')
   )
