@@ -1,46 +1,40 @@
-const { resolve } = require('path')
-const webpack = require('webpack')
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const webpack = require('webpack')
+const { resolve } = require('path')
 
-const env = process.env['NODE_ENV']
+const ENV = process.env['NODE_ENV']
+
+const JS_RULE = { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ }
+
+const STYLE_RULE = {
+  test: /\.scss$/,
+  use: [
+    ENV === 'development' ? { loader: 'style-loader' } : MiniCssExtractPlugin.loader,
+    { loader: 'css-loader' },
+    { loader: 'sass-loader' }
+  ]
+}
 
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
-  template: './index.html',
-  filename: 'index.html',
-  inject: 'body'
+  template : resolve(__dirname, 'src', 'index.html'),
+  filename : 'index.html',
+  inject   : 'body'
 })
 
 const webpackConfig = {
-  context: resolve(__dirname, 'src'),
-
-  entry: ['./index.js'],
+  entry: [resolve(__dirname, 'src', 'index.js')],
 
   output: {
-    path: resolve(__dirname, 'dist'),
-    filename: 'bundle.js',
-    publicPath: '/'
+    path       : resolve(__dirname, 'dist'),
+    filename   : 'bundle.js',
+    publicPath : '/'
   },
 
   devtool: 'inline-source-map',
 
   module: {
-    rules: [
-      { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
-      {
-        test: /\.scss$/,
-        use: [
-          env === 'development' ? { loader: 'style-loader' } : MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader'
-          },
-          {
-            loader: 'sass-loader'
-          }
-        ]
-      }
-    ]
+    rules: [JS_RULE, STYLE_RULE]
   },
 
   plugins: [
@@ -50,16 +44,17 @@ const webpackConfig = {
   ]
 }
 
-if (env === 'development') {
+if (ENV === 'development') {
   webpackConfig.mode = 'development'
+
   webpackConfig.entry.unshift('webpack-hot-middleware/client')
   webpackConfig.entry.unshift('react-hot-loader/patch')
 
-  const hmrPlugin = new webpack.HotModuleReplacementPlugin()
-  webpackConfig.plugins.push(hmrPlugin)
+  webpackConfig.plugins.push(new webpack.HotModuleReplacementPlugin())
 
-} else if (env === 'production') {
+} else if (ENV === 'production') {
   webpackConfig.mode = 'production'
+
   webpackConfig.plugins.push(new webpack.optimize.OccurrenceOrderPlugin())
 }
 
