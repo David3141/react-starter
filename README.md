@@ -13,42 +13,47 @@ Following dependencies are used:
 - express + webpack-dev-middleware + webpack-hot-middleware
 
 ## Setup
-- `git clone git@github.com:David3141/react-starter.git your-project-name`
-- `cd your-project-name`
-- `yarn install`
-- `rm -rf .git && git init && g add . && g commit -m "Initial commit"`
+1. `git clone git@github.com:David3141/react-starter.git your-project-name`
+2. `cd your-project-name`
+3. `yarn install`
+4. `rm -rf .git && git init && git add . && git commit -m "Initial commit"`
 
 ## Folder Structure
+
 ```
-– src
+• src
   ├ index.js         : root point for react app
   ├ index.html       : html page containing root div
-  └ components       : folder for react components
+  └ components
     ├ App.js         : an example component
     └ App.scss       : example component's style
-– server
+• server
   └ main.js          : simple express server with HMR (just for development)
-– public             : public folder for favicon, images etc.
-– dist               : (compiled source, created by webpack)
+• public             : public folder for favicon, images etc.
+• dist               : (compiled source, created by webpack)
 
 // Additional files
-- .babelrc           : babel config
-- .editorconfig      : editorconfig file (http://editorconfig.org/)
-- .eslintignore      : files not to lint
-- .eslintrc.json     : eslint config
-- .gitignore
-- package.json
-- README.md
-- webpack.config.js  : webpack config
-- yarn.lock
+• .babelrc           : babel config
+• .editorconfig      : editorconfig file (http://editorconfig.org/)
+• .eslintignore      : files not to lint
+• .eslintrc.json     : eslint config
+• .gitignore
+• package.json
+• README.md
+• webpack.config.js  : webpack config
+• yarn.lock
 ```
+
 ## Scripts
 
-- `yarn dev`      - starts an `express` server in `development` mode with dev+hmr webpack middleware
-- `yarn prod`     - compiles the project's source to `/dist` and starts an express server in `production` mode
-- `yarn lint`     - lints project via eslint (effectively only `/src`, have a look at .eslintignore)
-- `yarn lint:fix` - behaves like `lint` but fixes simple errors
-- `yarn compile`  - builds the project into `/dist`
+| npm script      | description           |
+|-----------------|--------------------------------------------------------------------------------------------|
+| `yarn dev`      | starts an `express` server in `development` mode with dev+hmr webpack middleware           |
+| `yarn prod`     | compiles the project's source to `/dist` and starts an express server in `production` mode |
+| `yarn lint`     | lints project via eslint (effectively only `/src`, have a look at .eslintignore)           |
+| `yarn lint:fix` | behaves like `lint` but fixes simple errors                                                |
+| `yarn compile`  | builds the project into `/dist`                                                            |
+
 
 ## TODO
 - add testig framework
