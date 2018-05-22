@@ -1,8 +1,8 @@
 const { resolve } = require('path')
 const webpack = require('webpack')
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 const env = process.env['NODE_ENV']
 
@@ -10,11 +10,6 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   template: './index.html',
   filename: 'index.html',
   inject: 'body'
-})
-
-const extractSass = new ExtractTextPlugin({
-  filename: '[name].[contenthash].css',
-  disable: process.env.NODE_ENV === 'development'
 })
 
 const webpackConfig = {
@@ -35,15 +30,15 @@ const webpackConfig = {
       { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
       {
         test: /\.scss$/,
-        use: extractSass.extract({
-          use: [{
+        use: [
+          env === 'development' ? { loader: 'style-loader' } : MiniCssExtractPlugin.loader,
+          {
             loader: 'css-loader'
-          }, {
+          },
+          {
             loader: 'sass-loader'
-          }],
-          // use style-loader in development
-          fallback: 'style-loader'
-        })
+          }
+        ]
       }
     ]
   },
@@ -51,11 +46,12 @@ const webpackConfig = {
   plugins: [
     HtmlWebpackPluginConfig,
     new webpack.NamedModulesPlugin(),
-    extractSass,
+    new MiniCssExtractPlugin()
   ]
 }
 
 if (env === 'development') {
+  webpackConfig.mode = 'development'
   webpackConfig.entry.unshift('webpack-hot-middleware/client')
   webpackConfig.entry.unshift('react-hot-loader/patch')
 
@@ -63,21 +59,8 @@ if (env === 'development') {
   webpackConfig.plugins.push(hmrPlugin)
 
 } else if (env === 'production') {
-  webpackConfig.plugins.push(
-    new webpack.DefinePlugin({
-      'process.env':{
-        'NODE_ENV': JSON.stringify('production')
-      }
-    })
-  )
+  webpackConfig.mode = 'production'
   webpackConfig.plugins.push(new webpack.optimize.OccurrenceOrderPlugin())
-  webpackConfig.plugins.push(
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: true
-      }
-    })
-  )
 }
 
 module.exports = webpackConfig
