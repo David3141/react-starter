@@ -8,7 +8,7 @@ const ENV = process.env['NODE_ENV']
 const JS_RULE = { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ }
 
 const STYLE_RULE = {
-  test: /\.scss$/,
+  test: /\.(css|scss)$/,
   use: [
     ENV === 'development' ? { loader: 'style-loader' } : MiniCssExtractPlugin.loader,
     { loader: 'css-loader' },
