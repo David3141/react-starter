@@ -1,16 +1,16 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const webpack = require('webpack')
 const { resolve } = require('path')
 
-const ENV = process.env['NODE_ENV']
+const IS_PRODUCTION = process.env['NODE_ENV'] === 'production'
 
 const JS_RULE = { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ }
 
 const STYLE_RULE = {
-  test: /\.(css|scss)$/,
-  use: [
-    ENV === 'development' ? { loader: 'style-loader' } : MiniCssExtractPlugin.loader,
+  test : /\.(css|scss)$/,
+  use  : [
+    IS_PRODUCTION ? MiniCssExtractPlugin.loader : { loader: 'style-loader' },
     { loader: 'css-loader' },
     { loader: 'sass-loader' }
   ]
@@ -23,39 +23,29 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 })
 
 const webpackConfig = {
-  entry: [resolve(__dirname, 'src', 'index.js')],
-
-  output: {
+  devtool : 'inline-source-map',
+  entry   : [resolve(__dirname, 'src', 'index.js')],
+  mode    : IS_PRODUCTION ? 'production' : 'development',
+  module  : { rules: [JS_RULE, STYLE_RULE] },
+  output  : {
     path       : resolve(__dirname, 'dist'),
     filename   : 'bundle.js',
     publicPath : '/'
   },
-
-  devtool: 'inline-source-map',
-
-  module: {
-    rules: [JS_RULE, STYLE_RULE]
-  },
-
-  plugins: [
+  plugins : [
     HtmlWebpackPluginConfig,
     new webpack.NamedModulesPlugin(),
     new MiniCssExtractPlugin()
   ]
 }
 
-if (ENV === 'development') {
-  webpackConfig.mode = 'development'
-
-  webpackConfig.entry.unshift('webpack-hot-middleware/client')
-  webpackConfig.entry.unshift('react-hot-loader/patch')
-
+if (IS_PRODUCTION) {
+  webpackConfig.plugins.push(new webpack.optimize.OccurrenceOrderPlugin())
+} else {
   webpackConfig.plugins.push(new webpack.HotModuleReplacementPlugin())
 
-} else if (ENV === 'production') {
-  webpackConfig.mode = 'production'
-
-  webpackConfig.plugins.push(new webpack.optimize.OccurrenceOrderPlugin())
+  webpackConfig.entry.unshift('webpack-hot-middleware/client')
+  webpackConfig.entry.unshift('react-hot-loader/patch') // has to be first entry, so unshift last
 }
 
 module.exports = webpackConfig
