@@ -12,11 +12,6 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   inject: 'body'
 })
 
-// const extractSass = new ExtractTextPlugin({
-//   filename: '[name].[contenthash].css',
-//   disable: process.env.NODE_ENV === 'development'
-// })
-
 const webpackConfig = {
   context: resolve(__dirname, 'src'),
 
@@ -36,7 +31,7 @@ const webpackConfig = {
       {
         test: /\.scss$/,
         use: [
-          MiniCssExtractPlugin.loader,
+          env === 'development' ? { loader: 'style-loader' } : MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader'
           },
@@ -44,15 +39,6 @@ const webpackConfig = {
             loader: 'sass-loader'
           }
         ]
-        // use: extractSass.extract({
-        //   use: [{
-        //     loader: 'css-loader'
-        //   }, {
-        //     loader: 'sass-loader'
-        //   }],
-        //   // use style-loader in development
-        //   fallback: 'style-loader'
-        // })
       }
     ]
   },
