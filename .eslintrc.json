@@ -25,10 +25,6 @@
           "error",
           2
       ],
-      "jsx-quotes": [
-        "error",
-        "prefer-single"
-      ],
       "react/jsx-equals-spacing": [1],
       "react/jsx-curly-spacing": [1],
       "linebreak-style": [
