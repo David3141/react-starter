@@ -1,39 +1,26 @@
 {
   "env": {
-      "browser": true,
-      "es6": true,
-      "jest/globals": true
+    "browser": true,
+    "es6": true,
+    "jest/globals": true
   },
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended"
-  ],
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
   "globals": {
     "module": true
   },
   "parser": "babel-eslint",
   "parserOptions": {
-      "ecmaFeatures": {
-          "jsx": true
-      },
-      "sourceType": "module"
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "sourceType": "module"
   },
-  "plugins": [
-      "react",
-      "jest"
-  ],
+  "plugins": ["react", "jest"],
   "rules": {
-      "indent": ["error", 2],
-      "react/jsx-equals-spacing": [1],
-      "react/jsx-curly-spacing": [1],
-      "linebreak-style": ["error", "unix"],
-      "quotes": ["error", "single"],
-      "semi": ["error", "never"],
-      "strict": 0,
-      "jest/no-disabled-tests": "warn",
-      "jest/no-focused-tests": "error",
-      "jest/no-identical-title": "error",
-      "jest/prefer-to-have-length": "warn",
-      "jest/valid-expect": "error"
+    "jest/no-disabled-tests": "warn",
+    "jest/no-focused-tests": "error",
+    "jest/no-identical-title": "error",
+    "jest/prefer-to-have-length": "warn",
+    "jest/valid-expect": "error"
   }
 }
