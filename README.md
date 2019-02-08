@@ -3,7 +3,7 @@
 A simple, yet powerful React starter that is easy to follow and packed with up-to-date packages for modern React web development:
 
 - **react 16**
-- **jest** + **enzyme**
+- **jest** + **react-testing-library**
 - **webpack 4** (support for babel + sass)
 - **express** (support for hot module replacement)
 
@@ -25,7 +25,6 @@ This project is set up using `yarn`, though `npm` will work as well, just replac
 ```
 • src
   ├ index.js           : root point for react app
-  ├ jest.index.js      : jest setup file for setting up enzyme
   ├ index.html         : html page containing root div
   ├ __mocks__          : mock files for jest
   └ components
@@ -42,7 +41,6 @@ This project is set up using `yarn`, though `npm` will work as well, just replac
 
 // Additional files
 • .babelrc             : babel config
-• .editorconfig        : editorconfig file (http://editorconfig.org/)
 • .eslintignore        : files not to lint
 • .eslintrc.json       : eslint config
 • .gitignore

@@ -1,10 +1,10 @@
 import React from 'react'
 import App from './App'
-import { shallow } from 'enzyme'
+import { render } from 'react-testing-library'
 
 describe('<App />', () => {
   it('renders correctly', () => {
-    const wrapper = shallow(<App />)
-    expect(wrapper).toMatchSnapshot()
+    const { container } = render(<App />)
+    expect(container).toMatchSnapshot()
   })
 })
