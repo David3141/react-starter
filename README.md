@@ -2,8 +2,8 @@
 
 A simple, yet powerful React starter that is easy to follow and packed with up-to-date packages for modern React web development:
 
-- **react 16.8**
-- **jest** + **react-testing-library**
+- **react**
+- **jest** + **@testing-library/react**
 - **webpack 4** (support for babel + sass)
 - **express** (support for hot module replacement)
 
